@@ -8,6 +8,8 @@ const int three = 3;
 const int four = 4;
 const int five = 5;
 
+int lastLed = 1;
+
 void setup() {
   // Initialize serial communication for debugging
   Serial.begin(9600);
@@ -42,22 +44,32 @@ void loop() {
   {
   case 1:
     digitalWrite(one, HIGH);
+    digitalWrite(lastLed, LOW);
+    lastLed = one;
     break;
 
   case 2:
     digitalWrite(two, HIGH);
+    digitalWrite(lastLed, LOW);
+    lastLed = two;
     break;
 
   case 3:
     digitalWrite(three, HIGH);
+    digitalWrite(lastLed, LOW);
+    lastLed = three;
     break;
 
   case 4:
     digitalWrite(four, HIGH);
+    digitalWrite(lastLed, LOW);
+    lastLed = four;
     break;
 
   case 5:
     digitalWrite(five, HIGH);
+    digitalWrite(lastLed, LOW);
+    lastLed = five;
     break;
     
   default:
