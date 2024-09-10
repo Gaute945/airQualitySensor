@@ -3,9 +3,11 @@
 
 // Define the analog pin
 const int potentiometerPin = A5;
-const int one = 8;
-const int two = 9;
-const int three = 10;
+const int one = 1;
+const int two = 2;
+const int three = 3;
+const int four = 4;
+const int five = 5;
 
 void setup() {
   // Initialize serial communication for debugging
@@ -13,6 +15,8 @@ void setup() {
   pinMode(one, OUTPUT);
   pinMode(two, OUTPUT);
   pinMode(three, OUTPUT);
+  pinMode(four, OUTPUT);
+  pinMode(five, OUTPUT);
 }
 
 float normalizeToRange(int value, int old_min, int old_max, int new_min, int new_max) {
@@ -35,6 +39,29 @@ void loop() {
   Serial.print("Normalized Potentiometer Value: ");
   Serial.println(NormalPotValue);
 
-  // Add a short delay before the next reading
-  delay(100);
+  switch (NormalPotValue)
+  {
+  case 1:
+    digitalWrite(one, HIGH);
+    break;
+
+  case 2:
+    digitalWrite(two, HIGH);
+    break;
+
+  case 3:
+    digitalWrite(three, HIGH);
+    break;
+
+  case 4:
+    digitalWrite(four, HIGH);
+    break;
+
+  case 5:
+    digitalWrite(five, HIGH);
+    break;
+    
+  default:
+    break;
+  }
 }
