@@ -2,6 +2,8 @@
 
 // Define the analog pin
 const int potentiometerPin = A5;
+
+// Led pins
 const int one = 1;
 const int two = 2;
 const int three = 3;
@@ -44,30 +46,35 @@ void loop() {
   {
   case 1:
     digitalWrite(one, HIGH);
+    delay(100);
     digitalWrite(lastLed, LOW);
     lastLed = one;
     break;
 
   case 2:
     digitalWrite(two, HIGH);
+    delay(100);
     digitalWrite(lastLed, LOW);
     lastLed = two;
     break;
 
   case 3:
     digitalWrite(three, HIGH);
+    delay(100);
     digitalWrite(lastLed, LOW);
     lastLed = three;
     break;
 
   case 4:
     digitalWrite(four, HIGH);
+    delay(100);
     digitalWrite(lastLed, LOW);
     lastLed = four;
     break;
 
   case 5:
     digitalWrite(five, HIGH);
+    delay(100);
     digitalWrite(lastLed, LOW);
     lastLed = five;
     break;
