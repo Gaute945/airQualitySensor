@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <cmath>
 
 // Define the analog pin
 const int potentiometerPin = A5;
@@ -35,7 +34,7 @@ void loop() {
   // Serial.print("Potentiometer Value: ");
   // Serial.println(potValue);
 
-  float NormalPotValue = normalizeToRange(potValue, 0, 1024, 0, 5);
+  int NormalPotValue = normalizeToRange(potValue, 0, 1024, 0, 5);
   Serial.print("Normalized Potentiometer Value: ");
   Serial.println(NormalPotValue);
 
