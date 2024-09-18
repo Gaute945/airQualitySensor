@@ -1,5 +1,26 @@
-#include <Arduino.h>
+#include <Adafruit_NeoPixel.h>
 
+const int pin = 8;
+const int numPixels = 5;
+const int delayVal = 500;
+
+Adafruit_NeoPixel pixels(numPixels, pin, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+    pixels.begin(); // Initialize the NeoPixel strip
+}
+
+void loop() {
+    pixels.clear(); // Clear the pixel buffer
+
+    for (int i = 0; i < numPixels; ++i) {
+        pixels.setPixelColor(i, pixels.Color(255, 0, 0)); // Set pixel color to red
+        pixels.show(); // Update the NeoPixel with the new colors
+        delay(delayVal); // Wait for a short time
+    }
+}
+
+/* 
 // Define the analog pin
 const int potentiometerPin = A5;
 
@@ -82,4 +103,5 @@ void loop() {
   default:
     break;
   }
-}
+} 
+*/
