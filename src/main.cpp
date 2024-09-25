@@ -12,7 +12,12 @@
 // Initialize the DHT sensor object
 DHT dht(DHTPIN, DHTTYPE);
 
+const int gasPin = A5;  // Analog pin A0
+int gasValue = 0;
+
 const int butPin = 8;
+// 1 for temperature, 2 for humidity, 3 for gas
+int currentMode = 1;
 
 const int tempHumSen = 2;
 
@@ -44,29 +49,60 @@ float normalizeToRange(int value, int old_min, int old_max, int new_min, int new
 
 void loop()
 {
+  // Read the analog value from the gas sensor
+  gasValue = analogRead(gasPin);
+
+  // kalibrert til 50%
   // Read the humidity and temperature (Celsius)
   float humidity = dht.readHumidity();
+  // float humidity = 50;
 
+  // float temperatureC = 22;
   float temperatureC = dht.readTemperature();
 
-  // Print results to the serial monitor
-  // Serial.print(humidity);
-  
-  // Serial.print(temperatureC);
-  
-  // Serial.print(heatIndexC);
-
   int buttonState = digitalRead(butPin);
+  if (buttonState == 0) {
+    currentMode++;
+    if (currentMode > 3) {
+      currentMode = 1;
+    }
+    delay(200);
+  }
 
-  int NormalValue = normalizeToRange(temperatureC, 0, 40, 0, 5);
+  // kalibrert til 22C
+  // int NormalValue = normalizeToRange(temperatureC, 0, 25, 0, 5);
   // int NormalValue = normalizeToRange(humidity, 0, 100, 0, 5);
+  // int NormalValue = normalizeToRange(gasValue, 0, 300, 0, 5);
 
-  // Serial.print("Normalized Potentiometer Value: ");
-  // Serial.println(NormalPotValue);
-  
+  // Select NormalValue based on the currentMode
+  int NormalValue;
+  switch (currentMode) {
+    case 1:
+      NormalValue = normalizeToRange(temperatureC, 0, 30, 0, 5); // Temperature mode
+      Serial.print("temperature");
+      Serial.print("\n");
+      Serial.print(temperatureC);
+      Serial.print("\n");
+      break;
+    case 2:
+      NormalValue = normalizeToRange(humidity, 0, 100, 0, 5); // Humidity mode
+      Serial.print("humidity");
+      Serial.print("\n");
+      break;
+    case 3:
+      NormalValue = normalizeToRange(gasValue, 0, 300, 0, 5); // Gas mode
+      Serial.print("C02");
+      Serial.print("\n");
+      break;
+    default:
+      NormalValue = 1; // Fallback in case of an error
+      break;
+  }
+
   pixels.clear(); // Clear the pixel buffer
 
-  Serial.print(NormalValue);
+  // Serial.print(currentMode);
+  // Serial.print("\n");
 
   switch (NormalValue)
   {
