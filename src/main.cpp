@@ -83,16 +83,23 @@ void loop()
       Serial.print("\n");
       Serial.print(temperatureC);
       Serial.print("\n");
+      delay(200);
       break;
     case 2:
       NormalValue = normalizeToRange(humidity, 0, 100, 0, 5); // Humidity mode
       Serial.print("humidity");
       Serial.print("\n");
+      Serial.print(humidity);
+      Serial.print("\n");
+      delay(200);
       break;
     case 3:
       NormalValue = normalizeToRange(gasValue, 0, 300, 0, 5); // Gas mode
       Serial.print("C02");
       Serial.print("\n");
+      Serial.print(gasValue);
+      Serial.print("\n");
+      delay(200);
       break;
     default:
       NormalValue = 1; // Fallback in case of an error
@@ -104,17 +111,48 @@ void loop()
   // Serial.print(currentMode);
   // Serial.print("\n");
 
+  // 255, 255, 0 for temp (1)
+  // 0, 255, 0 for humidity (2)
+  // 0, 0, 255 for C02 (3)
   switch (NormalValue)
   {
   case 1:
-      pixels.setPixelColor(0, pixels.Color(255, 0, 0));
-      pixels.show();
+    switch (currentMode) {
+      case 1:
+        pixels.setPixelColor(0, pixels.Color(255, 255, 0));
+        pixels.show();
+      case 2:
+        pixels.setPixelColor(0, pixels.Color(0, 255, 0));
+        pixels.show();
+      case 3:
+        pixels.setPixelColor(0, pixels.Color(0, 0, 255));
+        pixels.show();
+      default:
+        break;
+    }
     break;
 
   case 2:
-      pixels.setPixelColor(0, pixels.Color(0, 0, 255));
-      pixels.setPixelColor(1, pixels.Color(0, 0, 255));
-      pixels.show();
+    switch (currentMode) {
+      case 1:
+        pixels.setPixelColor(0, pixels.Color(255, 255, 0));
+        pixels.setPixelColor(1, pixels.Color(255, 255, 0));
+        pixels.show();
+
+      case 2:
+        pixels.setPixelColor(0, pixels.Color(0, 255, 0));
+        pixels.setPixelColor(1, pixels.Color(0, 255, 0));
+        pixels.show();
+
+      case 3:
+        pixels.setPixelColor(0, pixels.Color(0, 0, 255));
+        pixels.setPixelColor(1, pixels.Color(0, 0, 255));
+        pixels.show();
+
+        pixels.show();
+      default:
+        break;
+    }
     break;
 
   case 3:
